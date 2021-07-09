@@ -5,7 +5,8 @@ import Paper from "@material-ui/core/Paper";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Items from "../Elements/Items";
 import AdminMenu from "../Elements/AdminMenu";
-import Orders from "../Elements/Orders";
+
+import ItemOrder from "../Elements/ItemOrder";
 
 
 
@@ -31,7 +32,7 @@ const Home = () => {
         <Grid container spacing={1}>
             <Grid container item  xs={12} spacing={3}>
                 <Paper className={classes.paper}><Items/></Paper>
-                <Paper className={classes.paper}><Orders/></Paper>
+                <Paper className={classes.paper}><ItemOrder/></Paper>
                 <Paper className={classes.paper}><AdminMenu/></Paper>
             </Grid>
         </Grid>

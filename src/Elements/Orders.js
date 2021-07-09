@@ -8,6 +8,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
@@ -21,19 +22,21 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function AlignItemsList() {
+export default function AlignItemsList({title, ingredient, price, urlImg, delItem}) {
     const classes = useStyles();
+
+
 
     return (
         <List className={classes.root}>
-            <h2>Заказ</h2>
+
 
             <ListItem alignItems="flex-start">
                 <ListItemAvatar>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                    <Avatar alt="Remy Sharp" src={urlImg} />
                 </ListItemAvatar>
                 <ListItemText
-                    primary="Brunch this weekend?"
+                    primary={ingredient}
                     secondary={
                         <React.Fragment>
                             <Typography
@@ -42,57 +45,15 @@ export default function AlignItemsList() {
                                 className={classes.inline}
                                 color="textPrimary"
                             >
-                                Ali Connors
+                                {title}
                             </Typography>
-                            {" — I'll be in your neighborhood doing errands this…"}
+                            {price}
                         </React.Fragment>
                     }
                 />
             </ListItem>
+            <button onClick={delItem}>del</button>
             <Divider variant="inset" component="li" />
-            <ListItem alignItems="flex-start">
-                <ListItemAvatar>
-                    <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-                </ListItemAvatar>
-                <ListItemText
-                    primary="Summer BBQ"
-                    secondary={
-                        <React.Fragment>
-                            <Typography
-                                component="span"
-                                variant="body2"
-                                className={classes.inline}
-                                color="textPrimary"
-                            >
-                                to Scott, Alex, Jennifer
-                            </Typography>
-                            {" — Wish I could come, but I'm out of town this…"}
-                        </React.Fragment>
-                    }
-                />
-            </ListItem>
-            <Divider variant="inset" component="li" />
-            <ListItem alignItems="flex-start">
-                <ListItemAvatar>
-                    <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-                </ListItemAvatar>
-                <ListItemText
-                    primary="Oui Oui"
-                    secondary={
-                        <React.Fragment>
-                            <Typography
-                                component="span"
-                                variant="body2"
-                                className={classes.inline}
-                                color="textPrimary"
-                            >
-                                Sandra Adams
-                            </Typography>
-                            {' — Do you have Paris recommendations? Have you ever…'}
-                        </React.Fragment>
-                    }
-                />
-            </ListItem>
         </List>
     );
 }

@@ -1,65 +1,56 @@
-import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Checkbox from '@material-ui/core/Checkbox';
-import Avatar from '@material-ui/core/Avatar';
+import React, {useRef} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {addBurger} from "../redux/actions";
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            width: '100%',
-            maxWidth: 360,
-            backgroundColor: theme.palette.background.paper,
-        },
-    }),
-);
 
-export default function CheckboxListSecondary() {
-    const classes = useStyles();
-    const [checked, setChecked] = React.useState([1]);
+const AdminMenu = () => {
+    const name = useRef(null);
+    const price = useRef(null);
+    const status = useRef(null);
+    const desc = useRef(null);
+    const image = useRef(null);
 
-    const handleToggle = (value: number) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
+    const dispatch = useDispatch();
+    const myState = useSelector(state => state.menuReducer.menu)
 
-        if (currentIndex === -1) {
-            newChecked.push(value);
-        } else {
-            newChecked.splice(currentIndex, 1);
-        }
+    const addContent = e => {
+        e.preventDefault();
+        const el = {
+            title: name.current.value,
+            price: parseFloat(price.current.value),
+            status: status.current.value,
+            ingredient: desc.current.value,
+            urlImg: image.current.value,
+            id: myState.length + 1,
+        };
+        dispatch(addBurger(el));
+        e.currentTarget.reset()
 
-        setChecked(newChecked);
     };
+    console.log(myState)
+
+
+
+
 
     return (
-        <List dense className={classes.root}>
-            <h2>Админ панель</h2>
-            {[0, 1, 2, 3].map((value) => {
-                const labelId = `checkbox-list-secondary-label-${value}`;
-                return (
-                    <ListItem key={value} button>
-                        <ListItemAvatar>
-                            <Avatar
-                                alt={`Avatar n°${value + 1}`}
-                                src={`/static/images/avatar/${value + 1}.jpg`}
-                            />
-                        </ListItemAvatar>
-                        <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
-                        <ListItemSecondaryAction>
-                            <Checkbox
-                                edge="end"
-                                onChange={handleToggle(value)}
-                                checked={checked.indexOf(value) !== -1}
-                                inputProps={{ 'aria-labelledby': labelId }}
-                            />
-                        </ListItemSecondaryAction>
-                    </ListItem>
-                );
-            })}
-        </List>
+        <>
+            <h2>Админ</h2>
+            <form onSubmit={addContent}>
+
+                <input style={{display: 'block'}}  ref={name}  type="text" placeholder={'enter data'} autoComplete={'0'} name={'name'} />
+                <input style={{display: 'block'}} ref={price}  type="text" placeholder={'enter price'} autoComplete={'0'} name={'price'} />
+                <select ref={status} name={'status'} >
+                    <option value="avail">success</option>
+                    <option value="unavail">removed from menu</option>
+                </select>
+                <textarea style={{display: 'block'}} ref={desc} placeholder={'enter desc'}  name={'desc'} />
+                <input style={{display: 'block'}}  ref={image}   type="text" placeholder={'enter image'} autoComplete={'0'} name={'image'} />
+
+                <button>Add in menu</button>
+            </form>
+        </>
     );
-}
+};
+
+export default AdminMenu;

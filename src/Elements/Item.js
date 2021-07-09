@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 
 });
 
-export default function ImgMediaCard({urlImg, title, ingredient}) {
+export default function ImgMediaCard({urlImg, title, ingredient, orderClick}) {
     const classes = useStyles();
 
 
@@ -35,12 +35,12 @@ export default function ImgMediaCard({urlImg, title, ingredient}) {
                         {title}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        {ingredient.map(i => <span key={i}>{`${i}, `}</span>)}
+                        <span>{ingredient}</span>
                     </Typography>
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button  variant="outlined" size="small" color="secondary">
+                <Button onClick={orderClick}  variant="outlined" size="small" color="secondary">
                     Add to box
                 </Button>
                 <Button size="small" color="primary">
